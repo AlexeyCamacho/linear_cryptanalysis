@@ -80,3 +80,13 @@ vector<vector<int>> LinearSBlock::GetlinearApr()
 {
 	return this->linearApr;
 }
+
+int LinearSBlock::GetÑhance(int i, int j) 
+{
+	return this->linearApr[i][j];
+}
+
+vector<int> LinearSBlock::GetLine(int i)
+{
+	return this->linearApr[i];
+}

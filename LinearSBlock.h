@@ -22,5 +22,7 @@ public:
 	void —alculateSBlock();
 	bool XORBits(bitset<4> mask, bitset<4> input);
 	vector<vector<int>> GetlinearApr();
+	int Get—hance(int i, int j);
+	vector<int> GetLine(int i);
 };
 

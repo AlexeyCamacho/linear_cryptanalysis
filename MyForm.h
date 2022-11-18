@@ -3,6 +3,8 @@
 #include <string>
 #include <fstream>
 #include "LinearSBlock.h"
+#include "LinearAproximation.h"
+#include "Decryption.h"
 #include "Function.h"
 #include "PBlock.h"
 #include <msclr\marshal_cppstd.h>
@@ -346,6 +348,16 @@ namespace linearcryptanalysis {
 		SBlock->СalculateSBlock();
 		vector<vector<int>> linearApr = SBlock->GetlinearApr();
 		DrowGrid(linearApr);
+
+		int tableLine = Convert::ToInt16(this->numericUpDown1->Value);
+		int tableCol = Convert::ToInt16(this->numericUpDown2->Value);
+		int startSblock = Convert::ToInt16(this->numericUpDown3->Value);
+
+		LinearAproximation* LinApr = new LinearAproximation();
+
+		LinApr->SetInputP(bitset<16> (tableLine << (12 - 4 * (startSblock - 1))));
+		LinApr->SetSblock(SBlock);
+		LinApr->SetTableIndex(tableLine, tableCol);
 	}
 
 	void DrowGrid(vector<vector<int>> linearApr) {
