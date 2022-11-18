@@ -22,6 +22,13 @@ int LinearSBlock::Push(int input)
 	return 0;
 }
 
+void LinearSBlock::Set(vector<string> input)
+{
+	for (int i = 0; i < input.size(); i++) {
+		this->Push(stoi(input[i]));
+	}
+}
+
 void LinearSBlock::Clear()
 {
 	this->sblock.clear();

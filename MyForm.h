@@ -1,7 +1,11 @@
-#pragma once
+п»ї#pragma once
 #include <vector>
 #include <string>
+#include <fstream>
 #include "LinearSBlock.h"
+#include "Function.h"
+#include "PBlock.h"
+#include <msclr\marshal_cppstd.h>
 
 namespace linearcryptanalysis {
 
@@ -13,9 +17,10 @@ namespace linearcryptanalysis {
 	using namespace System::Drawing;
 
 	LinearSBlock* SBlock = new LinearSBlock();
+	PBlock* P_Block = new PBlock();
 
 	/// <summary>
-	/// Сводка для MyForm
+	/// РЎРІРѕРґРєР° РґР»СЏ MyForm
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -25,6 +30,7 @@ namespace linearcryptanalysis {
 			InitializeComponent();
 			this->label2->Text = "";
 			this->label3->Text = "";
+			this->label5->Text = "";
 			this->dataGridView1->ColumnCount = 16;
 			this->dataGridView1->RowCount = 16;
 
@@ -37,7 +43,7 @@ namespace linearcryptanalysis {
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~MyForm()
 		{
@@ -49,37 +55,40 @@ namespace linearcryptanalysis {
 	private: System::Windows::Forms::Label^ label1;
 	protected:
 	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Button^ button1;
+
 	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::NumericUpDown^ numericUpDown1;
+
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Button^ button3;
 	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
+	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::Label^ label5;
 
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->label5 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -103,17 +112,7 @@ namespace linearcryptanalysis {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(57, 20);
 			this->label2->TabIndex = 1;
-			this->label2->Text = L"БЛОК";
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(17, 127);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(120, 34);
-			this->button1->TabIndex = 2;
-			this->button1->Text = L"Очистить";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			this->label2->Text = L"Р‘Р›РћРљ";
 			// 
 			// button2
 			// 
@@ -121,19 +120,9 @@ namespace linearcryptanalysis {
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(120, 37);
 			this->button2->TabIndex = 3;
-			this->button2->Text = L"Ввод";
+			this->button2->Text = L"Р’РІРѕРґ";
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
-			// 
-			// numericUpDown1
-			// 
-			this->numericUpDown1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->numericUpDown1->Location = System::Drawing::Point(17, 51);
-			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 15, 0, 0, 0 });
-			this->numericUpDown1->Name = L"numericUpDown1";
-			this->numericUpDown1->Size = System::Drawing::Size(120, 27);
-			this->numericUpDown1->TabIndex = 5;
 			// 
 			// label3
 			// 
@@ -141,49 +130,74 @@ namespace linearcryptanalysis {
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->label3->ForeColor = System::Drawing::Color::Red;
-			this->label3->Location = System::Drawing::Point(14, 176);
+			this->label3->Location = System::Drawing::Point(13, 124);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(75, 20);
 			this->label3->TabIndex = 6;
-			this->label3->Text = L"Ошибки";
+			this->label3->Text = L"РћС€РёР±РєРё";
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(17, 199);
+			this->button3->Location = System::Drawing::Point(17, 156);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(120, 34);
 			this->button3->TabIndex = 7;
-			this->button3->Text = L"Расчитать";
+			this->button3->Text = L"Р’Р·Р»РѕРј";
 			this->button3->UseVisualStyleBackColor = true;
 			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
 			// 
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Location = System::Drawing::Point(201, 51);
+			this->dataGridView1->Location = System::Drawing::Point(205, 73);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersWidth = 15;
 			this->dataGridView1->RowTemplate->Height = 24;
 			this->dataGridView1->Size = System::Drawing::Size(717, 509);
 			this->dataGridView1->TabIndex = 8;
 			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->FileName = L"openFileDialog1";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label4->Location = System::Drawing::Point(13, 33);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(70, 20);
+			this->label4->TabIndex = 9;
+			this->label4->Text = L"P-block:";
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label5->Location = System::Drawing::Point(89, 33);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(57, 20);
+			this->label5->TabIndex = 10;
+			this->label5->Text = L"Р‘Р›РћРљ";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1326, 682);
+			this->Controls->Add(this->label5);
+			this->Controls->Add(this->label4);
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->label3);
-			this->Controls->Add(this->numericUpDown1);
 			this->Controls->Add(this->button2);
-			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MyForm";
-			this->Text = L"Линейный криптоанализ";
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
+			this->Text = L"Р›РёРЅРµР№РЅС‹Р№ РєСЂРёРїС‚РѕР°РЅР°Р»РёР·";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -191,25 +205,40 @@ namespace linearcryptanalysis {
 		}
 #pragma endregion
 	private: 
-	System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) { // Очистить SBlock
+
+	System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) { // Р’С‹Р±РѕСЂ С„Р°Р№Р»Р°
+		if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::Cancel) { return; }
+		string filename = msclr::interop::marshal_as<std::string>(openFileDialog1->FileName);
+
 		SBlock->Clear();
-		UpdateDisplaySblock();
+
+		string input;
+
+		ifstream fileInput(filename);
+		getline(fileInput, input);
+		vector<string> line = split(input, ' ');
+
+		SBlock->Set(line);
+
+		getline(fileInput, input);
+		line = split(input, ' ');
+		P_Block->Set(line);
+
+		UpdateDisplayBlocks();
 	}
 
-	System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) { // Ввод
-		this->label3->Text = "";
-		int input = Convert::ToInt16(this->numericUpDown1->Value);
+	void UpdateDisplayBlocks() {
+		this->label2->Text = "";
 
-		if (!SBlock->Push(input)){
-			this->label3->Text = "Данный элемент уже есть!";
+		vector <int> numbers = SBlock->GetSBlock();
+
+		for (int i = 0; i < numbers.size(); i++) {
+			this->label2->Text += numbers[i];
+			if (i != numbers.size() - 1) {
+				this->label2->Text += ", ";
+			}
 		}
 
-		UpdateDisplaySblock();
-
-		this->numericUpDown1->Focus();
-	}
-
-	void UpdateDisplaySblock() {
 		this->label2->Text = "";
 
 		vector <int> numbers = SBlock->GetSBlock();
@@ -222,8 +251,8 @@ namespace linearcryptanalysis {
 		}
 	}
 
-	System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
-		SBlock->СalculateSBlock();
+	System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) { // Р’Р·Р»РѕРј
+		SBlock->РЎalculateSBlock();
 		vector<vector<int>> linearApr = SBlock->GetlinearApr();
 		DrowGrid(linearApr);
 	}

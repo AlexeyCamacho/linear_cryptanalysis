@@ -119,14 +119,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Decryption.cpp" />
+    <ClCompile Include="Function.cpp" />
+    <ClCompile Include="LinearAproximation.cpp" />
     <ClCompile Include="LinearSBlock.cpp" />
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="Pblock.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Decryption.h" />
+    <ClInclude Include="Function.h" />
+    <ClInclude Include="LinearAproximation.h" />
     <ClInclude Include="LinearSBlock.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Pblock.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">

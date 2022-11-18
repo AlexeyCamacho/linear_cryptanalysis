@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <bitset>
+#include <string>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ public:
 
 	vector<int> GetSBlock();
 	int Push(int input);
+	void Set(vector<string> input);
 	void Clear();
 	void ÑalculateSBlock();
 	bool XORBits(bitset<4> mask, bitset<4> input);
