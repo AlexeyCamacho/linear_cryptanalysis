@@ -17,16 +17,50 @@ void LinearAproximation::SetSblock(LinearSBlock* SBlock)
 	this->SBlock = SBlock;
 }
 
+void LinearAproximation::SetPBlock(PBlock* P_block) {
+	this->P_block = P_block;
+}
+
 void LinearAproximation::SetStartRow(int i)
 {
 	this->startRow = i;
 }
 
+bitset<16> LinearAproximation::GetInput() {
+	return this->inputP;
+}
+
+bitset<16> LinearAproximation::GetOutput() {
+	return this->outputP;
+}
+
+double LinearAproximation::GetChance() {
+	double res = 0.5; 
+	double tmp = pow(2, this->chance.size() - 1);
+
+	for (int i = 0; i < this->chance.size(); i++) {
+		tmp *= double(this->chance[i]) / 16;
+	}
+
+	res += tmp;
+
+	return res;
+}
+
+
 void LinearAproximation::Ñalculate()
 {
 	this->tmp = this->inputP;
-	this->DistributeToSblock();
-	this->ProcessingSblocks();
+
+	for (int i = 0; i < 3; i++) {
+		this->DistributeToSblock();
+		this->ProcessingSblocks();
+		this->MergerSblock();
+		this->ProcessingPblock();
+	}
+
+	this->outputP = this->tmp;
+
 }
 
 int LinearAproximation::BestColInLine(vector<int> input)
@@ -73,6 +107,11 @@ void LinearAproximation::ProcessingSblocks() {
 	for (int i = 0; i < 4; i++) {
 		unsigned long indexLineTable = this->SBlocks[i].to_ulong();
 
+		if (indexLineTable == 0) {
+			this->SBlocks[i] = bitset<4>();
+			continue;
+		}
+
 		vector<int> line = this->SBlock->GetLine(indexLineTable);
 		unsigned long indexColTable = this->BestColInLine(line);
 
@@ -81,3 +120,18 @@ void LinearAproximation::ProcessingSblocks() {
 		this->SBlocks[i] = bitset<4>(indexColTable);
 	}
 }
+
+void LinearAproximation::MergerSblock() {
+	string res;
+
+	for (int i = 0; i < 4; i++) {
+		res += this->SBlocks[i].to_string();
+	}
+
+	this->tmp = bitset<16>(res);
+}
+
+void LinearAproximation::ProcessingPblock() {
+	this->tmp = this->P_block->Permutation(this->tmp);
+}
+
