@@ -17,21 +17,16 @@ void LinearAproximation::SetSblock(LinearSBlock* SBlock)
 	this->SBlock = SBlock;
 }
 
-void LinearAproximation::SetTableIndex(int i, int j)
+void LinearAproximation::SetStartRow(int i)
 {
-	this->tableIndex.first = i;
-	this->tableIndex.second = i;
+	this->startRow = i;
 }
 
 void LinearAproximation::Ñalculate()
 {
-	this->chance.push_back(this->SBlock->GetÑhance(this->tableIndex.first, this->tableIndex.second));
-
-	vector<int> line = this->SBlock->GetLine(this->tableIndex.second);
-	
-	int col = this->BestColInLine(line);
-	this->tableIndex.first = this->tableIndex.second;
-	this->tableIndex.second = col;
+	this->tmp = this->inputP;
+	this->DistributeToSblock();
+	this->ProcessingSblocks();
 }
 
 int LinearAproximation::BestColInLine(vector<int> input)
@@ -62,4 +57,27 @@ int LinearAproximation::BestColInLine(vector<int> input)
 	}
 
 	return res;
+}
+
+void LinearAproximation::DistributeToSblock()
+{
+	string input;
+
+	for (int i = 0; i < 4; i++) {
+		input = this->tmp.to_string().substr(4 * i, 4);
+		this->SBlocks[i] = bitset<4>(input);
+	}
+}
+
+void LinearAproximation::ProcessingSblocks() {
+	for (int i = 0; i < 4; i++) {
+		unsigned long indexLineTable = this->SBlocks[i].to_ulong();
+
+		vector<int> line = this->SBlock->GetLine(indexLineTable);
+		unsigned long indexColTable = this->BestColInLine(line);
+
+		this->chance.push_back(this->SBlock->GetÑhance(indexLineTable, indexColTable));
+
+		this->SBlocks[i] = bitset<4>(indexColTable);
+	}
 }

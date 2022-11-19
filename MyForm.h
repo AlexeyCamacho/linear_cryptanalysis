@@ -68,10 +68,12 @@ namespace linearcryptanalysis {
 	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Label^ label5;
-	private: System::Windows::Forms::NumericUpDown^ numericUpDown1;
-	private: System::Windows::Forms::Label^ label6;
+
+
 	private: System::Windows::Forms::Label^ label7;
 	private: System::Windows::Forms::NumericUpDown^ numericUpDown2;
+	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::NumericUpDown^ numericUpDown1;
 	private: System::Windows::Forms::Label^ label8;
 	private: System::Windows::Forms::NumericUpDown^ numericUpDown3;
 
@@ -99,16 +101,13 @@ namespace linearcryptanalysis {
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->label7 = (gcnew System::Windows::Forms::Label());
-			this->numericUpDown2 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->numericUpDown3 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -172,7 +171,7 @@ namespace linearcryptanalysis {
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersWidth = 15;
 			this->dataGridView1->RowTemplate->Height = 24;
-			this->dataGridView1->Size = System::Drawing::Size(717, 509);
+			this->dataGridView1->Size = System::Drawing::Size(758, 509);
 			this->dataGridView1->TabIndex = 8;
 			// 
 			// openFileDialog1
@@ -201,54 +200,12 @@ namespace linearcryptanalysis {
 			this->label5->TabIndex = 10;
 			this->label5->Text = L"БЛОК";
 			// 
-			// numericUpDown1
-			// 
-			this->numericUpDown1->Location = System::Drawing::Point(17, 174);
-			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 16, 0, 0, 0 });
-			this->numericUpDown1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->numericUpDown1->Name = L"numericUpDown1";
-			this->numericUpDown1->Size = System::Drawing::Size(120, 22);
-			this->numericUpDown1->TabIndex = 11;
-			this->numericUpDown1->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->label6->Location = System::Drawing::Point(13, 151);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(165, 20);
-			this->label6->TabIndex = 12;
-			this->label6->Text = L"Начальная строка";
-			// 
-			// label7
-			// 
-			this->label7->AutoSize = true;
-			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->label7->Location = System::Drawing::Point(12, 208);
-			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(176, 20);
-			this->label7->TabIndex = 14;
-			this->label7->Text = L"Начальная столбец";
-			// 
-			// numericUpDown2
-			// 
-			this->numericUpDown2->Location = System::Drawing::Point(16, 231);
-			this->numericUpDown2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 16, 0, 0, 0 });
-			this->numericUpDown2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->numericUpDown2->Name = L"numericUpDown2";
-			this->numericUpDown2->Size = System::Drawing::Size(120, 22);
-			this->numericUpDown2->TabIndex = 13;
-			this->numericUpDown2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			// 
 			// label8
 			// 
 			this->label8->AutoSize = true;
 			this->label8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label8->Location = System::Drawing::Point(12, 273);
+			this->label8->Location = System::Drawing::Point(12, 211);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(162, 20);
 			this->label8->TabIndex = 16;
@@ -256,7 +213,7 @@ namespace linearcryptanalysis {
 			// 
 			// numericUpDown3
 			// 
-			this->numericUpDown3->Location = System::Drawing::Point(16, 296);
+			this->numericUpDown3->Location = System::Drawing::Point(16, 234);
 			this->numericUpDown3->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
 			this->numericUpDown3->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->numericUpDown3->Name = L"numericUpDown3";
@@ -264,17 +221,34 @@ namespace linearcryptanalysis {
 			this->numericUpDown3->TabIndex = 15;
 			this->numericUpDown3->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label6->Location = System::Drawing::Point(13, 159);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(165, 20);
+			this->label6->TabIndex = 18;
+			this->label6->Text = L"Начальная строка";
+			// 
+			// numericUpDown1
+			// 
+			this->numericUpDown1->Location = System::Drawing::Point(17, 182);
+			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 15, 0, 0, 0 });
+			this->numericUpDown1->Name = L"numericUpDown1";
+			this->numericUpDown1->Size = System::Drawing::Size(120, 22);
+			this->numericUpDown1->TabIndex = 17;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1326, 682);
-			this->Controls->Add(this->label8);
-			this->Controls->Add(this->numericUpDown3);
-			this->Controls->Add(this->label7);
-			this->Controls->Add(this->numericUpDown2);
 			this->Controls->Add(this->label6);
 			this->Controls->Add(this->numericUpDown1);
+			this->Controls->Add(this->label8);
+			this->Controls->Add(this->numericUpDown3);
 			this->Controls->Add(this->label5);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->dataGridView1);
@@ -287,9 +261,8 @@ namespace linearcryptanalysis {
 			this->Name = L"MyForm";
 			this->Text = L"Линейный криптоанализ";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -302,6 +275,7 @@ namespace linearcryptanalysis {
 		filename = msclr::interop::marshal_as<std::string>(openFileDialog1->FileName);
 
 		SBlock->Clear();
+		P_Block->Clear();
 
 		string input;
 
@@ -315,9 +289,12 @@ namespace linearcryptanalysis {
 		line = split(input, ' ');
 		P_Block->Set(line);
 
-		UpdateDisplayBlocks();
-
 		fileInput.close();
+
+		UpdateDisplayBlocks();
+		SBlock->СalculateSBlock();
+		vector<vector<int>> linearApr = SBlock->GetlinearApr();
+		DrowGrid(linearApr);
 	}
 
 	void UpdateDisplayBlocks() {
@@ -345,19 +322,14 @@ namespace linearcryptanalysis {
 	}
 
 	System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) { // Взлом
-		SBlock->СalculateSBlock();
-		vector<vector<int>> linearApr = SBlock->GetlinearApr();
-		DrowGrid(linearApr);
-
 		int tableLine = Convert::ToInt16(this->numericUpDown1->Value);
-		int tableCol = Convert::ToInt16(this->numericUpDown2->Value);
 		int startSblock = Convert::ToInt16(this->numericUpDown3->Value);
 
 		LinearAproximation* LinApr = new LinearAproximation();
 
 		LinApr->SetInputP(bitset<16> (tableLine << (12 - 4 * (startSblock - 1))));
 		LinApr->SetSblock(SBlock);
-		LinApr->SetTableIndex(tableLine, tableCol);
+		LinApr->SetStartRow(tableLine);
 	}
 
 	void DrowGrid(vector<vector<int>> linearApr) {

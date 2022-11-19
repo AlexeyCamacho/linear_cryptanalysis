@@ -40,3 +40,8 @@ void PBlock::Set(vector<string> input) {
 void PBlock::Push(int input) {
 	this->permutation.push_back(input);
 }
+
+void PBlock::Clear()
+{
+	this->permutation.clear();
+}

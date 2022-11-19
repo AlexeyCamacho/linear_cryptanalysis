@@ -17,5 +17,6 @@ public:
 	vector<int> GetPermutation();
 	void Set(vector<string> input);
 	void Push(int input);
+	void Clear();
 };
 
