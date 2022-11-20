@@ -24,5 +24,6 @@ public:
 	vector<vector<int>> GetlinearApr();
 	int GetÑhance(int i, int j);
 	vector<int> GetLine(int i);
+	unsigned long ReverceSubstitution(bitset<4> input);
 };
 

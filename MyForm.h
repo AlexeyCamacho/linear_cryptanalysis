@@ -83,6 +83,7 @@ namespace linearcryptanalysis {
 	private: System::Windows::Forms::Label^ label12;
 	private: System::Windows::Forms::Label^ label13;
 	private: System::Windows::Forms::Label^ label14;
+	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Label^ label15;
 	private: System::Windows::Forms::Label^ label8;
 	private: System::Windows::Forms::NumericUpDown^ numericUpDown3;
@@ -122,6 +123,7 @@ namespace linearcryptanalysis {
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->label14 = (gcnew System::Windows::Forms::Label());
 			this->label15 = (gcnew System::Windows::Forms::Label());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
@@ -173,11 +175,11 @@ namespace linearcryptanalysis {
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(17, 362);
+			this->button3->Location = System::Drawing::Point(16, 286);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(120, 34);
+			this->button3->Size = System::Drawing::Size(120, 32);
 			this->button3->TabIndex = 7;
-			this->button3->Text = L"Взлом";
+			this->button3->Text = L"Анализ";
 			this->button3->UseVisualStyleBackColor = true;
 			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
 			// 
@@ -340,11 +342,22 @@ namespace linearcryptanalysis {
 			this->label15->TabIndex = 25;
 			this->label15->Text = L"Chance";
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(16, 324);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(120, 34);
+			this->button1->TabIndex = 26;
+			this->button1->Text = L"Взлом";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1326, 682);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label15);
 			this->Controls->Add(this->label14);
 			this->Controls->Add(this->label13);
@@ -428,7 +441,7 @@ namespace linearcryptanalysis {
 		}
 	}
 
-	System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) { // Взлом
+	System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) { // Анализ
 		int tableLine = Convert::ToInt16(this->numericUpDown1->Value);
 		int startSblock = Convert::ToInt16(this->numericUpDown3->Value);
 
@@ -459,6 +472,30 @@ namespace linearcryptanalysis {
 				this->dataGridView1->Rows[i]->Cells[j]->Value = linearApr[i][j];
 			}
 		}
+	}
+	System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) { // Взлом
+		Decryption* Decryptor = new Decryption();
+		Decryptor->SetSblock(SBlock);
+		
+		ifstream fileInput(filename);
+		string input;
+		getline(fileInput, input);
+		getline(fileInput, input);
+
+		while (getline(fileInput, input)) {
+			vector<string> line = split(input, ' ');
+			Decryptor->PushData(atoi(line[0].c_str()), atoi(line[1].c_str()));
+		}
+
+		fileInput.close();
+
+		string in = msclr::interop::marshal_as<std::string>(this->label13->Text);
+		string out = msclr::interop::marshal_as<std::string>(this->label14->Text);
+
+		Decryptor->SetInputApr(bitset<16>(in));
+		Decryptor->SetOutputApr(bitset<16>(out));
+
+		Decryptor->Calculate();
 	}
 };
 }

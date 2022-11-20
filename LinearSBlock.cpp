@@ -90,3 +90,9 @@ vector<int> LinearSBlock::GetLine(int i)
 {
 	return this->linearApr[i];
 }
+
+unsigned long LinearSBlock::ReverceSubstitution(bitset<4> input)
+{
+	vector<int>::iterator itr = find(this->sblock.begin(), this->sblock.end(), input.to_ulong());
+	return distance(this->sblock.begin(), itr);
+}
