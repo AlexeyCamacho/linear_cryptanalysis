@@ -16,6 +16,7 @@ private:
 	LinearSBlock* SBlock;
 	double chance;
 	int key;
+	double realyChance;
 
 public:
 	Decryption();
@@ -23,14 +24,16 @@ public:
 	void SetInputApr(bitset<16> input);
 	void SetOutputApr(bitset<16> input);
 	void SetSblock(LinearSBlock* SBlock);
+	void SetRealyChance(double chance);
 
 	int GetCountActiveSblocks();
-	bitset<16> GetKey();
+	string GetKey();
+	double GetChance();
 
 	void PushData(int x, int y);
 	void ClearData();
 
-	void Calculate();
+	void Calculate(System::Windows::Forms::ProgressBar^ bar);
 	void GetActiveSblocks();
 	double ÑheckKey(int key, bitset<16> activeSblocks);
 };

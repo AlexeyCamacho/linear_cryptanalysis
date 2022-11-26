@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <algorithm>
 #include "LinearSBlock.h"
 #include "LinearAproximation.h"
 #include "Decryption.h"
@@ -38,6 +39,9 @@ namespace linearcryptanalysis {
 			this->label13->Text = "";
 			this->label14->Text = "";
 			this->label15->Text = "";
+			this->label18->Text = "";
+			this->label19->Text = "";
+			this->label21->Text = "";
 			this->dataGridView1->ColumnCount = 16;
 			this->dataGridView1->RowCount = 16;
 
@@ -82,8 +86,15 @@ namespace linearcryptanalysis {
 	private: System::Windows::Forms::Label^ label11;
 	private: System::Windows::Forms::Label^ label12;
 	private: System::Windows::Forms::Label^ label13;
+	private: System::Windows::Forms::Label^ label21;
+	private: System::Windows::Forms::ProgressBar^ progressBar1;
 	private: System::Windows::Forms::Label^ label14;
 	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Label^ label16;
+	private: System::Windows::Forms::Label^ label17;
+	private: System::Windows::Forms::Label^ label18;
+	private: System::Windows::Forms::Label^ label19;
+	private: System::Windows::Forms::Label^ label20;
 	private: System::Windows::Forms::Label^ label15;
 	private: System::Windows::Forms::Label^ label8;
 	private: System::Windows::Forms::NumericUpDown^ numericUpDown3;
@@ -124,6 +135,13 @@ namespace linearcryptanalysis {
 			this->label14 = (gcnew System::Windows::Forms::Label());
 			this->label15 = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->label16 = (gcnew System::Windows::Forms::Label());
+			this->label17 = (gcnew System::Windows::Forms::Label());
+			this->label18 = (gcnew System::Windows::Forms::Label());
+			this->label19 = (gcnew System::Windows::Forms::Label());
+			this->label20 = (gcnew System::Windows::Forms::Label());
+			this->progressBar1 = (gcnew System::Windows::Forms::ProgressBar());
+			this->label21 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
@@ -352,11 +370,92 @@ namespace linearcryptanalysis {
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
+			// label16
+			// 
+			this->label16->AutoSize = true;
+			this->label16->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label16->Location = System::Drawing::Point(1049, 291);
+			this->label16->Name = L"label16";
+			this->label16->Size = System::Drawing::Size(67, 20);
+			this->label16->TabIndex = 27;
+			this->label16->Text = L"Взлом:";
+			// 
+			// label17
+			// 
+			this->label17->AutoSize = true;
+			this->label17->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label17->Location = System::Drawing::Point(1049, 353);
+			this->label17->Name = L"label17";
+			this->label17->Size = System::Drawing::Size(125, 20);
+			this->label17->TabIndex = 28;
+			this->label17->Text = L"Вероятность:";
+			// 
+			// label18
+			// 
+			this->label18->AutoSize = true;
+			this->label18->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label18->Location = System::Drawing::Point(1049, 376);
+			this->label18->Name = L"label18";
+			this->label18->Size = System::Drawing::Size(63, 20);
+			this->label18->TabIndex = 29;
+			this->label18->Text = L"chance";
+			// 
+			// label19
+			// 
+			this->label19->AutoSize = true;
+			this->label19->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label19->Location = System::Drawing::Point(1049, 439);
+			this->label19->Name = L"label19";
+			this->label19->Size = System::Drawing::Size(34, 20);
+			this->label19->TabIndex = 31;
+			this->label19->Text = L"key";
+			// 
+			// label20
+			// 
+			this->label20->AutoSize = true;
+			this->label20->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label20->Location = System::Drawing::Point(1049, 416);
+			this->label20->Name = L"label20";
+			this->label20->Size = System::Drawing::Size(208, 20);
+			this->label20->TabIndex = 30;
+			this->label20->Text = L"Предполагаемый ключ:";
+			// 
+			// progressBar1
+			// 
+			this->progressBar1->Location = System::Drawing::Point(1053, 327);
+			this->progressBar1->Name = L"progressBar1";
+			this->progressBar1->Size = System::Drawing::Size(261, 23);
+			this->progressBar1->Step = 1;
+			this->progressBar1->TabIndex = 32;
+			// 
+			// label21
+			// 
+			this->label21->AutoSize = true;
+			this->label21->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label21->Location = System::Drawing::Point(1050, 459);
+			this->label21->Name = L"label21";
+			this->label21->Size = System::Drawing::Size(79, 20);
+			this->label21->TabIndex = 33;
+			this->label21->Text = L"RealyKey";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1326, 682);
+			this->Controls->Add(this->label21);
+			this->Controls->Add(this->progressBar1);
+			this->Controls->Add(this->label19);
+			this->Controls->Add(this->label20);
+			this->Controls->Add(this->label18);
+			this->Controls->Add(this->label17);
+			this->Controls->Add(this->label16);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label15);
 			this->Controls->Add(this->label14);
@@ -476,11 +575,20 @@ namespace linearcryptanalysis {
 	System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) { // Взлом
 		Decryption* Decryptor = new Decryption();
 		Decryptor->SetSblock(SBlock);
+
+		string chance = msclr::interop::marshal_as<std::string>(this->label15->Text);
+		replace(chance.begin(), chance.end(), ',', '.');
+		double lol = atof(chance.c_str());
+		Decryptor->SetRealyChance(atof(chance.c_str()));
+		this->label3->Text = "";
 		
 		ifstream fileInput(filename);
 		string input;
+		string realyKey;
 		getline(fileInput, input);
 		getline(fileInput, input);
+		getline(fileInput, realyKey);
+
 
 		while (getline(fileInput, input)) {
 			vector<string> line = split(input, ' ');
@@ -494,8 +602,17 @@ namespace linearcryptanalysis {
 
 		Decryptor->SetInputApr(bitset<16>(in));
 		Decryptor->SetOutputApr(bitset<16>(out));
+		
+		Decryptor->GetActiveSblocks();
 
-		Decryptor->Calculate();
+		Decryptor->Calculate(this->progressBar1);
+
+		this->label18->Text = gcnew System::String(Decryptor->GetChance().ToString());
+
+		this->label19->Text = gcnew System::String(Decryptor->GetKey().c_str());
+
+		string u = bitset<16> (atoi(realyKey.c_str())).to_string();
+		this->label21->Text = gcnew System::String(u.c_str());
 	}
 };
 }
