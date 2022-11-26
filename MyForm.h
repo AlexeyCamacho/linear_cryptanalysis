@@ -605,6 +605,11 @@ namespace linearcryptanalysis {
 		
 		Decryptor->GetActiveSblocks();
 
+		if (Decryptor->GetCountActiveSblocks() > 3) {
+			this->label3->Text = "Много Sbloков";
+			return;
+		}
+
 		Decryptor->Calculate(this->progressBar1);
 
 		this->label18->Text = gcnew System::String(Decryptor->GetChance().ToString());

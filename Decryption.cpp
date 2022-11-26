@@ -51,7 +51,7 @@ string Decryption::GetKey() {
 
 	for (int i = 0; i < 16; i++) {
 		if (this->outputApr.test(15 - i)) {
-			res += tmp[15 - i];
+			res += tmp[i];
 		}
 		else {
 			res += "_";
@@ -78,18 +78,20 @@ void Decryption::Calculate(System::Windows::Forms::ProgressBar^ bar) {
 	double chance = 0;
 	int key = 0;
 
-	bar->Maximum = 16 * this->activeSblocks.size();
+	bar->Maximum = pow(16, this->activeSblocks.size());
 	bar->Value = 0;
 
-	for (int i = 0; i < 16 * this->activeSblocks.size(); i++) {
+	for (int i = 0; i < pow(16, this->activeSblocks.size()); i++) {
 		double tmpChance = this->ÑheckKey(i, activeData);
 
-		if (this->realyChance > 0.5) {
+		if (abs(tmpChance) > abs(chance)) { chance = tmpChance; key = i; }
+
+		/*if (this->realyChance < 0.5) {
 			if (tmpChance > chance) { chance = tmpChance; key = i; }
 		}
 		else {
 			if (tmpChance < chance) { chance = tmpChance; key = i; }
-		}
+		}*/
 
 		bar->Increment(1);
 	}
@@ -173,7 +175,7 @@ double Decryption::ÑheckKey(int key, bitset<16> activeSblocks) {
 			}
 		}
 
-		if (this->realyChance > 0.5) {
+		if (this->realyChance < 0.5) {
 			if (hypothesis) {
 				succes++;
 			}
